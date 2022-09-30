@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="progress mb-2" style="border-radius: 0px">
+      <div class="progress-bar bg-primary"></div>
+    </div>
+
+    <h1 class="text-center text-primary" id="workInputLabel">0</h1>
+    <input
+      type="range"
+      class="form-range"
+      min="5"
+      max="45"
+      step="5"
+      id="workInput"
+    />
+
+    <h1 class="text-center text-primary" id="restInputLabel">0</h1>
+    <input
+      type="range"
+      class="form-range"
+      min="1"
+      max="15"
+      step="1"
+      id="restInput"
+    />
+
+    <div class="mt-4 d-flex justify-content-between gap-4 px-4">
+      <button
+        type="button"
+        id="resetBtn"
+        class="btn btn-outline-danger"
+        style="width: 100%"
+      >
+        Reset
+      </button>
+      <button
+        type="button"
+        id="startBtn"
+        class="btn btn-outline-primary"
+        style="width: 100%"
+      >
+        Start
+      </button>
+    </div>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./index.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js" />
+  </body>
+</html>

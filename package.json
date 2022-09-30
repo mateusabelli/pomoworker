@@ -1,0 +1,42 @@
+{
+  "name": "pomoworker",
+  "version": "0.0.1",
+  "description": "A minimal Pomodoro desktop application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.mateusabelli.pomoworker",
+    "productName": "PomoWorker",
+    "copyright": "Copyright © 2022 Mateus Abelli",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "repository": "https://github.com/mateusabelli/pomoworker",
+  "author": "Mateus Abelli",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^20.1.4",
+    "electron-builder": "^23.3.3",
+    "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.1"
+  }
+}
