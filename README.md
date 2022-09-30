@@ -66,7 +66,7 @@ $ npm start
 
 ## Download
 
-TODO
+[Click here](https://github.com/mateusabelli/pomoworker/releases) to download the latest version of PomoWorker for Windows.
 
 ## Credits
 
