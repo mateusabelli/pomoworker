@@ -48,7 +48,6 @@ resetBtn.addEventListener("click", () => {
 });
 
 trayToggle.addEventListener("change",()=>{
-  console.log('pin')
   window.electronAPI.toggleTrayStatus();
 })
 
