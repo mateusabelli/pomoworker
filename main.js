@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Notification, ipcMain } = require("electron");
+const { app, BrowserWindow, Notification, ipcMain,Tray,Menu } = require("electron");
 const path = require("path");
 
 let mainWindow;
@@ -7,6 +7,8 @@ let counter = 0;
 let isRunning = false;
 let workMinutes = 0;
 let restMinutes = 0;
+let appIcon = null;
+let isMinToTray = false;
 
 try {
   require("electron-reloader")(module);
@@ -30,6 +32,35 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+/*------Handle Minimize window to tray-------*/
+  mainWindow.on('close', function (event) {
+    if(isMinToTray){   
+      event.preventDefault();
+      mainWindow.hide()
+    }
+});
+
+mainWindow.on('minimize', function (event) {
+  if(isMinToTray){   
+    event.preventDefault();
+    mainWindow.hide()
+  }
+})
+
+const contextMenu = Menu.buildFromTemplate([
+  { label: 'Show App', click:  function(){
+      mainWindow.show();
+  } },
+  { label: 'Quit', click:  function(){
+      mainWindow.destroy();
+      app.quit();
+  } }
+]);
+
+appIcon = new Tray(path.join("icon.ico"));
+appIcon.setToolTip('Electron.js App');
+appIcon.setContextMenu(contextMenu);
+
 }
 
 // const NOTIFICATION_TITLE = "Basic Notification";
@@ -92,11 +123,15 @@ function restTimer() {
   });
 }
 
+function toggleTrayStatus(){
+  isMinToTray = !isMinToTray
+}
+
 ipcMain.on("set-work-minutes", (e, minutes) => (workMinutes = minutes));
 ipcMain.on("set-rest-minutes", (e, minutes) => (restMinutes = minutes));
 ipcMain.on("start-timer", () => startTimer());
 ipcMain.on("stop-timer", () => stopTimer());
-
+ipcMain.on("toggle-tray-status",()=>toggleTrayStatus())
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.

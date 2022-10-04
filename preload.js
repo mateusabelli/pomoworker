@@ -13,6 +13,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   setRestMinutes: (minutes) => ipcRenderer.send("set-rest-minutes", minutes),
   startTimer: () => ipcRenderer.send("start-timer"),
   stopTimer: () => ipcRenderer.send("stop-timer"),
-
+  toggleTrayStatus:()=>ipcRenderer.send("toggle-tray-status"),
   handleProgress: (callback) => ipcRenderer.on('update-progress', callback)
 });

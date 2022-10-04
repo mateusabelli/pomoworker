@@ -16,6 +16,8 @@ const startBtn = document.getElementById("startBtn");
 
 const progressBar = document.querySelector(".progress-bar");
 
+const trayToggle = document.getElementById('trayToggle');
+
 workInputLabel.innerText = workInput.value;
 restInputLabel.innerText = restInput.value;
 resetBtn.setAttribute("disabled", "disabled");
@@ -44,6 +46,10 @@ resetBtn.addEventListener("click", () => {
   resetBtn.setAttribute("disabled", "disabled");
   startBtn.removeAttribute("disabled");
 });
+
+trayToggle.addEventListener("change",()=>{
+  window.electronAPI.toggleTrayStatus();
+})
 
 window.electronAPI.handleProgress((event, value) => {
   progressBar.style.width = `${value}%`;
