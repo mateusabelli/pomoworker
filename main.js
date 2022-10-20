@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Notification, ipcMain,Tray,Menu } = require("electron");
+const { app, BrowserWindow, Notification, ipcMain, Tray, Menu } = require("electron");
 const path = require("path");
 
 let mainWindow;
@@ -17,8 +17,8 @@ try {
 function createWindow() {
   mainWindow = new BrowserWindow({
     title: "PomoWorker",
-    width: 350,
-    height: 290,
+    width: 360,
+    height: 320,
     autoHideMenuBar: true,
     icon: path.join("icon.ico"),
     webPreferences: {
@@ -32,35 +32,43 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
-/*------Handle Minimize window to tray-------*/
+
+  /*------Handle Minimize window to tray-------*/
   mainWindow.on('close', function (event) {
     if(isMinToTray){   
       event.preventDefault();
       mainWindow.hide()
     }
-});
+  });
 
-mainWindow.on('minimize', function (event) {
-  if(isMinToTray){   
-    event.preventDefault();
-    mainWindow.hide()
-  }
-})
+  mainWindow.on('minimize', function (event) {
+    if(isMinToTray){   
+      event.preventDefault();
+      mainWindow.hide()
+    }
+  })
 
-const contextMenu = Menu.buildFromTemplate([
-  { label: 'Show App', click:  function(){
-      mainWindow.show();
-  } },
-  { label: 'Quit', click:  function(){
-      mainWindow.destroy();
-      app.quit();
-  } }
-]);
+  const contextMenu = Menu.buildFromTemplate(
+  [
+    { 
+      label: 'Show App',
+      click:  function () {
+        mainWindow.show();
+      } 
+    },
+    {
+      label: 'Quit',
+      click:  function () {
+        mainWindow.destroy();
+        app.quit();
+      } 
+    }
+  ]);
 
-appIcon = new Tray(path.join("icon.ico"));
-appIcon.setToolTip('Electron.js App');
-appIcon.setContextMenu(contextMenu);
-
+  appIcon = new Tray(path.join("icon.ico"));
+  appIcon.setToolTip('PomoWorker');
+  appIcon.setContextMenu(contextMenu);
+  appIcon.on('double-click', () => mainWindow.show());
 }
 
 // const NOTIFICATION_TITLE = "Basic Notification";
