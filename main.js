@@ -65,7 +65,10 @@ function createWindow() {
     }
   ]);
 
-  appIcon = new Tray(path.join("icon.ico"));
+  appIcon = new Tray(
+    // Find the correct path to the icon on the production build
+    app.isPackaged ? path.join(process.resourcesPath, "icon.ico") : "icon.ico"
+  );
   appIcon.setToolTip('PomoWorker');
   appIcon.setContextMenu(contextMenu);
   appIcon.on('double-click', () => mainWindow.show());
